@@ -3,35 +3,37 @@ End point:
 Books:
  
 1. *GET* /books -list of all the book
-
-
 ```json
-{
-    "id": 4,
-    "title": "Harry Potter and the sorcerer stone",
-    "author": "JK Rowling",
-    "genre": "Fantasy",
-    "year": 1998,
-    "availability": { 
-    "total": 5,
-        "available": 3,
-    },
-    "description": "Follow our brave little wizards in their adventures",
-    "age": 8,
-    "history": [
-        {"name":"AI", "checkoudate":02/28/26, "returndate":03/03/26},
-        {"name":"RW", "checkoudate":01/18/26, "returndate":02/01/26},
-        {"name":"HP", "checkoudate":07/31/25, "returndate":09/01/25},  
+{ 
+    "books":
+    [ 
+        {
+        "id": 1,  
+        "title": "Harry Potter and the sorcerer stone",
+        "author": "JK Rowling",
+        "available": "true",
+        },
+        {
+        "id": 2,
+        "title": "The Hobbit",
+        "author": "J.R.R. Tolkien",
+        "available": true
+        }
     ]
 }
 
+
 ```
 
+
+
 2.	*POST* /books -create book
+    - 201 created
 
 ```json
 {
     "title": "Harry Potter and the sorcerer stone",
+    "ISBN": "9780590353427",
     "author": 1,
     "genre": "Fantasy",
     "year": 1998,
@@ -44,8 +46,32 @@ Books:
 ```
 
 3.	*DELETE* /books/:id -delete book based out of ID
+    - 200 success
 4.	*PUT* /books/:id -edit specific book
 5.	*GET* /books/:id -list books by ID
+    - 200 success
+```json
+{
+    "id": 4,
+    "title": "Harry Potter and the sorcerer stone",
+    "ISBN": "9780590353427",
+    "author": "JK Rowling",
+    "genre": "Fantasy",
+    "year": 1998,
+    "availability": { 
+    "total": 5,
+        "available": 3,
+    },
+    "description": "Follow our brave little wizards in their adventures",
+    "age": 8,
+    "history": [
+        {"name":"AI", "checkoudate":"02/28/2026", "returndate":"03/03/2026"},
+        {"name":"RW", "checkoudate":"01/18/2026", "returndate":"02/01/2026"},
+        {"name":"HP", "checkoudate":"07/31/2025", "returndate":"09/01/2025"},  
+    ]
+}
+
+```
 
 Users:
 
@@ -58,11 +84,66 @@ Users:
 Authors:
 
 1. *GET* /authors -list of the authors
+```json
+{
+    "authors": [
+       {
+        "lastName": "Rowling",
+        "firstName": "JK",
+        "dob": "07/31/1965",
+        "id": 1,
+        },
+
+        {
+        "lastName": "Tolkien",
+        "firstName": "J.R.R.",
+        "dob": "01/03/1892",
+        "id": 2,
+        }
+
+    ]
+
+
+
+}
+
+```
 2. *DELETE* /authors/:id -delete specific author
 3. *POST* /authors -create author
+```json
+{
+"lastName": "Rowling",
+"firstName": "JK",
+"dob": "07/31/1965",
+}
+```
+response
+```json
+{
+    "id":2
+}
+
+
+```
 4. *PUT* /authors/:id -edit author
 5. *GET* /authors/:id -list author by ID
+```json
+{
+"lastName": "tolkien",
+"firstName": "J.R.R",
+"id": 2,
+"uniqueQuantity": 1,
+"books": [
+    {
+    "title": "The Hobbit",
+    "id": 2,
+    "year": 1937
+    }
+]
 
+}
+
+```
 
 Inventory
 

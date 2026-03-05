@@ -1,0 +1,29 @@
+{
+  "name": "library-app",
+  "version": "1.0.0",
+  "description": "End point:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aiverson1011/library-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Aiverson1011/library-app/issues"
+  },
+  "homepage": "https://github.com/Aiverson1011/library-app#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodeman": "^1.1.2",
+    "nodemon": "^3.1.14"
+  }
+}

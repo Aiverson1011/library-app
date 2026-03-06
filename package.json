@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/Aiverson1011/library-app#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.2.4"
   },
   "devDependencies": {
     "nodeman": "^1.1.2",

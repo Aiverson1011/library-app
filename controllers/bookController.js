@@ -8,3 +8,21 @@ exports.createBook = (req, res) => {
         data: req.body
     });
 };
+
+exports.deleteBook = (req, res) => {
+    res.status(200).json({
+        message: "Book deleted",
+    });
+};
+
+exports.updateBook = (req, res) => {
+    res.json({
+        message: `book id ${req.params.id} updated`
+    });
+};
+
+exports.getBookById = (req, res) => {
+    res.json({
+        message: `book id ${req.params.id} retreived`
+    });
+};

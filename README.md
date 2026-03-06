@@ -46,7 +46,7 @@ Books:
 ```
 
 3.	*DELETE* /books/:id -delete book based out of ID
-    - 200 success
+    - 204 success
 4.	*PUT* /books/:id -edit specific book
 5.	*GET* /books/:id -list books by ID
     - 200 success

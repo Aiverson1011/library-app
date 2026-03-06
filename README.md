@@ -48,7 +48,9 @@ Books:
 3.	*DELETE* /books/:id -delete book based out of ID
     - 204 success
 4.	*PUT* /books/:id -edit specific book
-5.	*GET* /books/:id -list books by ID
+5. *PATCH* /books/:id - update specific book NOTE: We need to allow to update the quantities of a book
+
+6.	*GET* /books/:id -list books by ID
     - 200 success
 ```json
 {

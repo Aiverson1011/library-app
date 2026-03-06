@@ -162,3 +162,34 @@ Checkout
 }
 
 ```
+
+2. *PATCH* /loans/:id/return
+
+```json
+
+{
+    "bookId": 12,
+    "message": "Book returned",
+    "returnDate": "2026-03-25",
+    "userId": 5,
+}
+
+```
+
+3. *GET* /loans
+
+```json
+
+{
+    "loans": [
+        {
+            "bookId": 5,
+            "userId": 1,
+            "checkOutDate": "2026-03-05",
+            "dueDate": "2026-04-05",
+        }
+    ]
+
+}
+
+```

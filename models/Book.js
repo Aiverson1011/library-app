@@ -94,4 +94,4 @@ const bookSchema = new mongoose.Schema({
         default: []
     },
 },
-{timeStamps: true});
+{timestamps: true});

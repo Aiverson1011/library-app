@@ -1,3 +1,5 @@
+const author = require("../models/Author");
+
 exports.getAllAuthors = (req, res) => {
     res.json({
         message: "Retreiving all the authors"

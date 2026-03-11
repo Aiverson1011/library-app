@@ -55,6 +55,12 @@ const bookSchema = new mongoose.Schema({
         trim: true
     },
 
+    authorId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Author",
+        required: true
+    },
+
     genre: {
         type: String,
         trim: true

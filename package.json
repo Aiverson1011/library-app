@@ -20,9 +20,13 @@
   },
   "homepage": "https://github.com/Aiverson1011/library-app#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "mongoose": "^9.2.4"
+    "express-session": "^1.19.0",
+    "mongoose": "^9.2.4",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "nodeman": "^1.1.2",

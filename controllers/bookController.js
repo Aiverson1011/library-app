@@ -5,36 +5,37 @@ const mongoose = require("mongoose");
 function formatDate(dateValue) {
     if (!dateValue) return null;
     return new Date(dateValue).toISOString().split("T")[0];
-};
+}
 
-function buildAuthorName(dbAuthor){
+function buildAuthorName(dbAuthor) {
     return `${dbAuthor.firstName} ${dbAuthor.lastName}`;
-};
-
+}
 
 exports.getAllbooks = async (req, res) => {
     try {
-        const books = await Book.find().sort({title: 1});
+        const books = await Book.find().sort({ title: 1 });
+
         const response = {
             books: books.map(book => ({
                 id: book._id,
                 title: book.title,
                 author: book.author,
-                available: book.availability.available > 0,
+                available: book.availability.available > 0
             }))
         };
-        res.status(200).json(response);
+
+        return res.status(200).json(response);
     } catch (err) {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Error retrieving books",
-            error: error.message
+            error: err.message
         });
     }
 };
 
 exports.createBook = async (req, res) => {
-    try{
-        const { 
+    try {
+        const {
             title,
             isbn,
             authorId,
@@ -44,27 +45,30 @@ exports.createBook = async (req, res) => {
             description,
             age
         } = req.body;
-        if(!title || !isbn || !authorId){
-            res.status(400).json({
+
+        if (!title || !isbn || !authorId) {
+            return res.status(400).json({
                 message: "title, isbn and authorId details are required"
             });
-        };
+        }
 
-        if(!mongoose.Types.ObjectId.isValid(authorId)){
-            res.status(400).json({
-                message: "authorId not found"
+        if (!mongoose.Types.ObjectId.isValid(authorId)) {
+            return res.status(400).json({
+                message: "Invalid authorId"
             });
-        };
+        }
 
-        const author = await Author.findbyId(authorId);
-        if (!author){
-            res.status(404).json({
+        const author = await Author.findById(authorId);
+
+        if (!author) {
+            return res.status(404).json({
                 message: "Author not found"
             });
-        };
+        }
 
         const authorName = buildAuthorName(author);
         const totalCopies = availability?.total ?? 1;
+
         const newBook = new Book({
             title,
             isbn,
@@ -81,6 +85,7 @@ exports.createBook = async (req, res) => {
         });
 
         const savedBook = await newBook.save();
+
         const response = {
             id: savedBook._id,
             title: savedBook.title,
@@ -94,28 +99,24 @@ exports.createBook = async (req, res) => {
             history: []
         };
 
-        res.status(201).json(response);
+        return res.status(201).json(response);
 
-    }catch(err){
-        res.status(400).json({
-            message: "Error creating book"
+    } catch (err) {
+        return res.status(400).json({
+            message: "Error creating book",
+            error: err.message
         });
-    };
-   
-    res.status(201).json({
-        message: "You've created a book"
-    });
-
+    }
 };
 
 exports.deleteBook = (req, res) => {
-    res.status(200).json({
-        message: "Book deleted",
+    return res.status(200).json({
+        message: "Book deleted"
     });
 };
 
 exports.updateBook = (req, res) => {
-    res.json({
+    return res.json({
         message: `book id ${req.params.id} updated`
     });
 };
@@ -123,15 +124,17 @@ exports.updateBook = (req, res) => {
 exports.getBookById = async (req, res) => {
     try {
         const { id } = req.params;
+
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json ({
+            return res.status(400).json({
                 message: "Invalid book ID"
             });
         }
 
-        const book = await Book.findbyId(id);
+        const book = await Book.findById(id);
+
         if (!book) {
-            return res.status(404).json ({
+            return res.status(404).json({
                 message: "Book not found"
             });
         }
@@ -150,20 +153,18 @@ exports.getBookById = async (req, res) => {
             description: book.description,
             age: book.age,
             history: book.history.map(entry => ({
-                username: entry.username,
+                userName: entry.userName,
                 checkoutDate: formatDate(entry.checkoutDate),
                 returnDate: formatDate(entry.returnDate)
             }))
-        }; res.status(200).json(response);
+        };
+
+        return res.status(200).json(response);
+
     } catch (err) {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Error retrieving book",
             error: err.message
-        })
+        });
     }
-
-
-    res.json({
-        message: `book id ${req.params.id} retreived`
-    });
 };

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const authorSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -14,9 +14,12 @@ const authorSchema = new mongoose.Schema(
       trim: true
     },
 
-    dob: {
-      type: Date,
-      required: true
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true,
+      unique: true
     }
   },
   {
@@ -24,4 +27,4 @@ const authorSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Author", authorSchema);
+module.exports = mongoose.model("User", userSchema);

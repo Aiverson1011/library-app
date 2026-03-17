@@ -1,11 +1,13 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const app = express();
-app.use(express.json())
 const bookRoutes = require("./routes/bookRoutes");
 const authorRoutes = require("./routes/authorRoutes");
 const loanRoutes = require("./routes/loanRoutes");
+
+const app = express();
+app.use(express.json())
+
 
 const PORT = 3000;
 

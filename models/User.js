@@ -20,6 +20,24 @@ const userSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       unique: true
+    },
+
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true
+    },
+
+    passwordHash: {
+      type: String,
+      required: true
+    },
+
+    role: {
+      type: String,
+      enum: ["member", "librarian"],
+      default: "member"
     }
   },
   {

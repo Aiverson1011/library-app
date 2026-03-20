@@ -11,7 +11,6 @@ exports.createLoan = async (req, res) => {
   try {
     const { bookId, userId, dueDate } = req.body;
 
-    // validation
     if (!bookId || !userId || !dueDate) {
       return res.status(400).json({
         message: "bookId, userId, and dueDate are required"
@@ -24,6 +23,14 @@ exports.createLoan = async (req, res) => {
     ) {
       return res.status(400).json({
         message: "Invalid bookId or userId"
+      });
+    }
+
+    // Authorization rule:
+    // members can only create loans for themselves
+    if (req.user.role !== "librarian" && req.user.id !== userId) {
+      return res.status(403).json({
+        message: "You can only create loans for your own account"
       });
     }
 
@@ -42,7 +49,6 @@ exports.createLoan = async (req, res) => {
       });
     }
 
-    // availability check
     if (book.availability.available <= 0) {
       return res.status(400).json({
         message: "No copies available"
@@ -57,7 +63,6 @@ exports.createLoan = async (req, res) => {
 
     const savedLoan = await newLoan.save();
 
-    // update book availability
     book.availability.available -= 1;
     await book.save();
 
@@ -69,7 +74,6 @@ exports.createLoan = async (req, res) => {
       dueDate: savedLoan.dueDate,
       returnDate: savedLoan.returnDate
     });
-
   } catch (err) {
     return res.status(400).json({
       message: "Error creating loan",
